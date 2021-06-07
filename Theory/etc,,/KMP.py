@@ -26,10 +26,11 @@ def KMP(parent,pattern):
             j = table[j-1]
         if parent[i] == pattern[j]:
             if j == patternSize -1:
-                print(i-patternSize,"에서 찾음")
+                print("1")
                 j = table[j]
+                break
             else:
                 j+=1
-
+    print("0")
 
 print(KMP("abacaabaabacaaba","abacaaba"))
