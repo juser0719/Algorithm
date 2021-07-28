@@ -1,22 +1,19 @@
 package SWexpert_Academy;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 
 public class View {
     static int N;
-   		static int[] building;
+   	static int[] building;
 	public static void main(String args[]) throws IOException
 	{
 		System.setIn(new FileInputStream("/Users/jeon-ungjae/Desktop/woong/Coding/Algorithm/SWexpert_Academy/input.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T=10;
-		//T=sc.nextInt()
-
+        
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
 			N = sc.nextInt(); 
@@ -30,7 +27,10 @@ public class View {
             for (int i = 2; i < N - 2; i++) {
                 int max = Math.max(building[i - 2], Math.max(building[i - 1], Math.max(building[i + 1], building[i + 2])));
                 if (building[i] - max > 0)
-                    cnt += building[i] - max;
+                    {
+                        cnt += building[i] - max;
+                        i +=2;
+                    }
             }
 
             System.out.println("#" + test_case + " " + cnt);
