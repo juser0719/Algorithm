@@ -15,16 +15,24 @@ public class 문자열나누기 {
             set = new HashSet<String>();
             String name = "";
 
-            for (int i = 0 ; i < s.length(); i ++ ){
+            for (int i = 0 ; i < s.length(); i ++ )
+            {
                 name = "";
-                for(int j = i; j < s.length();j++){
+                for(int j = i; j < s.length();j++)
+                {
                     name += s.substring(j, j+1);
                     set.add(name);
                 }
             }
-        }
+            List<String> li = new ArrayList(set);
+            Collections.sort(li);
 
-        System.out.println(set);
+            for(String i : li){
+                System.out.println(i);
+            }
+        }
+        
+        
         
 
     }

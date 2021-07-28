@@ -1,31 +1,41 @@
 package SWexpert_Academy;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 
 public class View {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt( br.readLine());
-        int[] bulidings = new int[N];
-        int T = 1;
-        int idx= 0;
-        for(String height : br.readLine().split(" ")){
-            bulidings[idx] = Integer.parseInt(height);
-            idx++;
-        }
+    static int N;
+   		static int[] building;
+	public static void main(String args[]) throws IOException
+	{
+		System.setIn(new FileInputStream("/Users/jeon-ungjae/Desktop/woong/Coding/Algorithm/SWexpert_Academy/input.txt"));
+		Scanner sc = new Scanner(System.in);
+		int T=10;
+		//T=sc.nextInt()
 
-        int cnt = 0;
-        for(int i = 2 ; i < N-2; i ++){
-            int now = bulidings[i];
-            int max = Math.max(Math.max(bulidings[i-2],bulidings[i-1]),Math.max(bulidings[i+1],bulidings[i+2]));
-            if (now > max){
-                cnt += now - max;
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
+			N = sc.nextInt(); 
+            building = new int[N];
+            for (int i = 0; i < N; i++) {
+                building[i] = sc.nextInt();
             }
-        }
-        System.out.println("#" + T +" " + cnt);
-        T++;
-    }    
+
+            int cnt = 0;
+            
+            for (int i = 2; i < N - 2; i++) {
+                int max = Math.max(building[i - 2], Math.max(building[i - 1], Math.max(building[i + 1], building[i + 2])));
+                if (building[i] - max > 0)
+                    cnt += building[i] - max;
+            }
+
+            System.out.println("#" + test_case + " " + cnt);
+
+
+		}
+	}
 }
