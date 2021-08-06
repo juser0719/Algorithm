@@ -24,7 +24,7 @@ public class 조합응용 {
 			
 		}
 	}
-	
+
 	// 순열 
 	private static void dice2(int cnt) 
 	{
