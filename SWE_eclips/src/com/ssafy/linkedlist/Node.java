@@ -1,8 +1,11 @@
 package com.ssafy.linkedlist;
 
 public class Node {
-	String data;
-	Node link;
+
+	// 데이터 필드
+	public String data;
+	// 링크 필드
+	public Node link;
 	
 	public Node(String data) {
 		super();
@@ -18,7 +21,6 @@ public class Node {
 	public String toString() {
 		return "Node [data=" + data + ", link=" + link + "]";
 	}
-	
 	
 	
 }
