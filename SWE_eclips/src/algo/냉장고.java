@@ -20,7 +20,7 @@ public class 냉장고 {
 		
 		int cnt = 1;
 		int now = arr.get(0)[1];
-		System.out.println(arr.toArray());
+
 		for(int i = 0 ; i < arr.size(); i++)
 		{
 			if(now < arr.get(i)[0])
