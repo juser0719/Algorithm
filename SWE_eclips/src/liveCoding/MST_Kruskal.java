@@ -58,8 +58,8 @@ public class MST_Kruskal {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st= new StringTokenizer(br.readLine());
-		V = Integer.parseInt(st.nextToken());
-		E = Integer.parseInt(st.nextToken());
+		V = Integer.parseInt(st.nextToken()); // 노드 갯수 입력.
+		E = Integer.parseInt(st.nextToken()); // 간선 갯수 입력.
 		
 		edgeList = new Edge[E];
 		
@@ -69,16 +69,16 @@ public class MST_Kruskal {
 			int start = Integer.parseInt(st.nextToken());
 			int end = Integer.parseInt(st.nextToken());
 			int weight = Integer.parseInt(st.nextToken());
-			edgeList[i] = new Edge(start, end, weight);
+			edgeList[i] = new Edge(start, end, weight); //간선 정보 입력.
 		}
 		
-		Arrays.sort(edgeList);
+		Arrays.sort(edgeList); // 가중치를 기준으로 정렬.
 		
 		make_set();// 모든 정점을 각각의 집합으로 만들고 출발.
 		int cnt  = 0 , res =0;
 		for(Edge edge : edgeList)
 		{
-			if(union(edge.start,edge.end))
+			if(union(edge.start,edge.end)) // true : 합치기 성공. false :합칠 필요 없음.
 			{
 				res += edge.weight;
 				if(++cnt == V-1) break; // 신장트리 완성.

@@ -52,13 +52,13 @@ public class AdjMatrix {
 		}
 	}
 	
-	public static void dfs(int now , boolean[] visited)
+	public static void dfs(int start , boolean[] visited)
 	{
 		//visited[now] = true; //후보 2: 호출 후 수정. -> 이게 더 나을듯. 
 		
 		for(int i = 0 ; i < N ; i++)
 		{
-			if(!visited[i] && adjMatrix[now][i])
+			if(!visited[i] && adjMatrix[start][i])
 			{
 				//visited[i] = true; // 후보 1 : dfs 들어가기 전에시작도 visited[start] = true; g해줘야
 				dfs(i,visited);
