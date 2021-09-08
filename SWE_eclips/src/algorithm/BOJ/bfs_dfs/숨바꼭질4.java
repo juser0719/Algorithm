@@ -10,8 +10,8 @@ public class 숨바꼭질4 {
 			Scanner sc = new Scanner(System.in);
 			int N = sc.nextInt();
 			int K = sc.nextInt();
-			int[] visite = new int[100000+1];
-			int[] path   = new int[100000+1];
+			int[] visite = new int[100000+1]; // key = pos , val = time
+			int[] path   = new int[100000+1]; // key = to  , val = from
 			
 			visite[N] = 1;
 			path[N] = N;
