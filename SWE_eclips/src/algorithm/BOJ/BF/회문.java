@@ -8,30 +8,55 @@ public class 회문 {
 		int size = s.length(), res = 0;
 		int st = 0;
 		int ed = size-1;
-		while(st<ed) {
+		
+		while(st<=ed) {
 			char st_c = s.charAt(st);
 			char ed_c = s.charAt(ed);
 
-			if(st_c != ed_c) {
-				int ns = st+1;
-				int ne = ed-1;
-				if(ns < ed && s.charAt(ns) == s.charAt(ed)) {
-					st++;
-					res= 1;
-					continue;
+			if(st_c == ed_c) {
+				st++;
+				ed--;
+			}
+			else{
+				// 1 2
+				int l = st;
+				int e = ed;
+				l++;
+				res++;
+				boolean left = true;
+				boolean right= true;
+				while(l<=e) {
+					if(s.charAt(l) == s.charAt(e)) {
+						l++;
+						e--;
+					}
+					else {
+						left = false;
+						break;
+					}
 				}
-				if (st < ne && s.charAt(st) == s.charAt(ne)) {
-					ed--;
-					res = 1;
-					continue;
+				
+				l = st;
+				e = ed;
+				e--;
+				while(l<=e) {
+					if(s.charAt(l) == s.charAt(e)) {
+						l++;
+						e--;
+					}
+					else {
+						right = false;
+						break;
+					}
 				}
-				res = 2;
-				break;
+				if(!left && !right) {
+					res++; // 2
+				}
+				return res; 
 				
 			}
 			
-			st++;
-			ed--;
+			
 		}
 		return res;
 	}
@@ -44,18 +69,7 @@ public class 회문 {
 		{
 			String str = sc.next();
 			int state = isPallen(str);
-			if(state == 0) {
-				sb.append("0\n");
-				continue;
-			}else {
-				if(state == 1)
-				{
-					sb.append("1\n");
-					continue;
-				}else
-					sb.append("2\n");
-					continue;
-			}
+			sb.append(state+"\n");
 		}
 		
 		System.out.println(sb.toString());
