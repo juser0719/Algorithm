@@ -89,9 +89,7 @@ public class 프로세스연결하기 {
 				}
 				//연결 안했다는 가정하에 다음으로 넘어감.
 				connet(idx+1,core,wire);
-			} else {
-				connet(idx+1,core,wire);
-			}
+			} 
 		}
 		
 	}
