@@ -56,28 +56,6 @@ public class 회전초밥 {
 			
 		}
 		
-//		for(int i = 0; i < N ; i++)
-//		{
-//			int idx = 0;
-//			cnt =0;
-//			while(idx != k-1)
-//			{
-//				if(eat[arr[(i+idx)%N]] == 0) cnt++;
-//				eat[arr[(i+idx)%N]]++;
-//				idx++;
-//			}
-//			
-//			if(eat[c] == 0) cnt++;
-//			
-//			max = Integer.max(max,cnt);
-//			
-//			while(idx != k-1)
-//			{
-//				eat[arr[(i+idx)%N]]--;
-//				idx++;
-//			}
-//		}
-//		
 		return max;
 	}
 }
