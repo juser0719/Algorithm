@@ -44,9 +44,10 @@ def bfs(sy, sx):
                     visit[ny][nx] = True
                     # 1로 최소 거리니까. 무조건 가야지.
                     if 0 < board[ny][nx] < shark_size:
-                        # 먹을 수 있냐?
+                        # 먹을 수 있냐? 먹을 수 있는 물고기들의 정보 넣어줌.
                         dist_lis.append([dis+1, ny, nx])
                     else:
+                        # 이동만 하면 이동할 곳 넣어줌.
                         q.append((ny, nx, dis+1))
 
     if dist_lis:
@@ -58,11 +59,13 @@ def bfs(sy, sx):
 
 
 while fish_cnt:
-    res = bfs(shark_y, shark_x)
-    if res == False:
+    shark = bfs(shark_y, shark_x)
+    # 최단거리 물고기까지 거리 , y, x
+    if shark == False:
+        # 먹을 물고기 없음.
         break
-    shark_y, shark_x = res[1], res[2]
-    time += res[0]
+    shark_y, shark_x = shark[1], shark[2]
+    time += shark[0]
     shark_eat += 1
     fish_cnt -= 1
     if shark_size == shark_eat:
