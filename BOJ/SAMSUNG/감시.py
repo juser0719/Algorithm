@@ -3,11 +3,12 @@ dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 # 동서 남북
 direction = [[], [[0], [1], [2], [3]], [[0, 1], [2, 3]],
-             [[3, 0], [0, 2], [2, 1], [1, 3]], [[3, 0, 1], [0, 2, 3], [2, 0, 1], [1, 2, 3]], [0, 1, 2, 3]]
+             [[3, 0], [0, 2], [2, 1], [1, 3]], [[3, 0, 1], [
+                 0, 2, 3], [2, 0, 1], [1, 2, 3]], [[0, 1, 2, 3]]]
 
 
-def watch(y, x, dirs, office_copy):
-    for d in dirs:
+def watch(y, x, watch_dirs, office_copy):
+    for d in watch_dirs:
         ny = y
         nx = x
         while True:
@@ -32,9 +33,8 @@ def dfs(office, cctv_cnt):
         area = min(area, cnt)
         return
     cctv_type, y, x = cctv[cctv_cnt]
-
-    for dirs in direction[cctv_type]:
-        watch(y, x, dirs, office_copy)
+    for turn in direction[cctv_type]:
+        watch(y, x, turn, office_copy)
         dfs(office_copy, cctv_cnt+1)
         office_copy = deepcopy(office)
 
