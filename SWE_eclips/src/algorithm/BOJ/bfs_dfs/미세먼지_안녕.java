@@ -15,6 +15,7 @@ public class 미세먼지_안녕 {
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st= new StringTokenizer(br.readLine());
 		ArrayList<int[]> aircon = new ArrayList<int[]>();
 		Queue<int[]> air = new LinkedList<int[]>();

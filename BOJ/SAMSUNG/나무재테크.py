@@ -1,76 +1,74 @@
-"""
-처음에는 양분이 모든칸에 5만큼.
-M 개의 나무 구매, 한칸에 여러개 나무 가능.
-봄 : 자신의 나이만큼 양분 먹고 1살 증가. -> 양분 먹는건 나이순대로 어린애들부터. 못먹으면 즉시 즉사.
-여름 : 죽은 나무 나이 // 2 + 양분으로 
-가을 : 나이가 5배수이면 8방에 1의 나무가 생김.
-겨울 : 로봇이 양분 추가.
 
-K 년후 살아있는 나무 개수.
-"""
-from collections import deque
-dx = [0, 0, 1, 1, 1, -1, -1, -1]
-dy = [-1, 1, 0, 1, -1, 0, -1, 1]
+def spring_summer():  # 봄, 여름 함수
+    global soils
+    global trees
+    dead_trees = [[[] for _ in range(N)] for _ in range(N)]
 
-
-def spring_summer():
-
-    tree_info.sort(key=lambda x: x[0])
-    dead_tree = []
-    for i in range(len(tree_info)):
-        year, y, x = tree_info[i]
-
-        if soild[y][x] >= year:
-            # 양분 먹을 수 있다면,
-            soild[y][x] -= year
-            year += 1
-            tree_info[i][0] = year
-        else:
-            dead_tree.append([year, y, x])
-            tree_info.pop(i)
-            print(tree_info)
-            print("i=", i)
-            i -= 1
-            print("i=", i)
-
-    for i in range(len(dead_tree)):
-        year, y, x = dead_tree[i]
-        soild[y][x] += int(year//2)
-
-
-def fall():
-    new_tree = []
-
-    for i in range(len(tree_info)):
-        year, y, x = tree_info[i]
-        if year % 5 == 0:
-            for d in range(8):
-                ny = y + dy[d]
-                nx = x + dx[d]
-                if 0 <= ny < N and 0 <= nx < N:
-                    new_tree.append([1, ny, nx])
-
-    tree_info.extend(new_tree)
-
-
-def winter():
     for i in range(N):
         for j in range(N):
-            soild[i][j] += plus[i][j]
+            trees[i][j].sort()
+            for idx in range(len(trees[i][j])):
+                if soils[i][j] >= trees[i][j][idx]:
+                    # 양분 먹을 수 있다면.
+                    soils[i][j] -= trees[i][j][idx]
+                    trees[i][j][idx] += 1
+                    # 나이 +1
+                else:
+                    dead_trees[i][j].append(idx)
+            # 죽은 나무가 있을 경우 해당 칸 안만 바뀌기 때문에 칸별로 봄여름을 한번에 진행했다.
+            for idx in range(len(dead_trees[i][j])-1, -1, -1):
+                temp = trees[i][j][dead_trees[i][j][idx]]
+                del trees[i][j][dead_trees[i][j][idx]]
+                # i,j에 죽은 나무의 나이 없애줌.
+                soils[i][j] += temp//2
+    return
+
+
+delta = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, -1), (-1, 1)]
+
+
+def autumn():  # 가을 함수
+    new_trees = [[[] for _ in range(N)] for _ in range(N)]
+    for i in range(N):
+        for j in range(N):
+            for tree in trees[i][j]:
+                if tree % 5 == 0:
+                    for dl in delta:
+                        newi = i + dl[0]
+                        newj = j + dl[1]
+                        if -1 < newi < N and -1 < newj < N:
+                            new_trees[newi][newj].append(1)
+
+    for i in range(N):
+        for j in range(N):
+            trees[i][j].extend(new_trees[i][j])
+    return
+
+
+def winter():  # 겨울함수
+    for i in range(N):
+        for j in range(N):
+            soils[i][j] += fertilizer[i][j]
+    return
 
 
 N, M, K = map(int, input().split())
-soild = [[5]*N for _ in range(N)]
-plus = [list(map(int, input().split())) for _ in range(N)]
-tree_info = []
-
+fertilizer = [list(map(int, input().split())) for _ in range(N)]
+# 양분 분포.
+soils = [[5 for _ in range(N)] for _ in range(N)]
+trees = [[[] for _ in range(N)] for _ in range(N)]
 for _ in range(M):
     x, y, z = map(int, input().split())
-    tree_info.append([z, y-1, x-1])
+    trees[x-1][y-1].append(z)
+    # 나이 넣어줌.
 
 for _ in range(K):
     spring_summer()
-    fall()
+    autumn()
     winter()
+ans = 0
+for i in range(N):
+    for j in range(N):
+        ans += len(trees[i][j])
 
-print(len(tree_info))
+print(ans)
