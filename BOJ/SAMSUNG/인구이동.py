@@ -1,4 +1,4 @@
-from _collections import deque
+from collections import deque
 
 
 def move_population(union_list):
