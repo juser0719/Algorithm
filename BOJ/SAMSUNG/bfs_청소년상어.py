@@ -11,22 +11,38 @@
 from collections import deque
 dy = [-1, -1, 0, 1, 1, 1, 0, -1]
 dx = [0, -1, -1, -1, 0, 1, 1, 1]
-fishs = {}
-board = [[0]*4 for _ in range(4)]
-visit = [[0]*4 for _ in range(4)]
+
+
+def move(fy, fx):
+    for i in range(16):
+        if fish[i]:
+            y, x = fish[i][0], fish[i][0]
+
+            for _ in range(9):
+                ny = y + dy[board[y][x][1]]
+                nx = x + dx[board[y][x][1]]
+                if 0 <= nx < 4 and 0 <= ny < 4 and board[ny][nx]:
+                    fish[board[ny][nx][0]] = [y, x]
+
+
+def dfs(y, x, d, cnt):
+    global res, board, fish
+    move(y, x)
+
+
+board = [[] for _ in range(4)]
+fish = [[] for _ in range(16)]
+
 for i in range(4):
-    li = list(map(int, input().split()))
-    j = 0
-    for k in range(0, 7, 2):
-        board[i][j] = li[k]
-        fishs[li[k]] = [li[k+1], True, i, j]
-        # key: 번호, value : 방향,먹혔는지, y, x,
-        j += 1
-fishs = sorted(fishs.keys())
-shark_y, shark_x = 0, 0
-shark_res = board[0][0]  # 0 번째에 있는 물고기 먹음.
-shark_dir = fishs[board[0][0]][0]  # 0,0 물고기 방향성 가짐.
-fishs[board[0][0]][1] = True
+    line = list(map(int, input().split()))
 
-
-print(board)
+    for j in range(0, 7, 2):
+        board[i].append([line[j]-1, line[j+1]-1])
+        fish[line[j]-1] = [i, j//2]
+res = 0
+d = board[0][0][1]
+cnt = board[0][0][0]+1
+fish[board[0][0][0]] = []
+board[0][0] = []
+dfs(0, 0, d, cnt)
+print(res)
